@@ -1,4 +1,6 @@
 import next from 'eslint-config-next/core-web-vitals'
 import ts from 'eslint-config-next/typescript'
 
-export default [...next, ...ts, { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts'] }, { rules: { 'no-console': 'error' } }]
+const config = [...next, ...ts, { ignores: ['.next/**', 'node_modules/**', 'next-env.d.ts'] }, { rules: { 'no-console': 'error' } }]
+
+export default config

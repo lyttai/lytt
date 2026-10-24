@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Confirm your lytt account</title></head>
+<body style="margin:0;padding:32px 16px;background:#f5f3ee;color:#1c1b19;font-family:'IBM Plex Sans',Arial,sans-serif;font-size:16px;line-height:1.6">
+<div style="max-width:520px;margin:0 auto">
+<p style="font-size:22px;font-weight:600;margin:0 0 24px">lytt</p>
+<p>Confirm this email address to finish creating your lytt account.</p>
+<p style="margin:28px 0"><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&amp;type=email&amp;next=/chat" style="background:#2f5d46;color:#f5f3ee;padding:12px 18px;border-radius:2px;text-decoration:none;font-weight:500">Confirm email</a></p>
+<p style="color:#5f5b53;font-size:14px">You got this because someone signed up for lytt with this address. If it was not you, ignore this email and no account will be created.</p>
+<hr style="border:0;border-top:1px solid #d9d4c9;margin:28px 0">
+<p style="color:#5f5b53;font-size:13px">This is an account email from lytt, {{ .SiteURL }}. lytt only sends product emails if you turn them on. <a href="{{ .SiteURL }}/unsubscribe" style="color:#2f5d46">Unsubscribe</a> or manage emails in <a href="{{ .SiteURL }}/settings" style="color:#2f5d46">Settings</a>. <a href="{{ .SiteURL }}/privacy" style="color:#2f5d46">Privacy policy</a>.</p>
+</div>
+</body>
+</html>

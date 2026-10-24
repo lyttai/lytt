@@ -12,4 +12,4 @@ export function parse<T extends z.ZodType>(schema: T, data: FormData): { data: z
   return r.success ? { data: r.data } : { state: { error: 'Fix the highlighted fields.', fields: z.flattenError(r.error).fieldErrors as Record<string, string[]>, values } }
 }
 
-export const safeNext = (next?: string) => next && /^\/(?![/\])[\w\-/?=&.]*$/.test(next) ? next : '/chat'
+export const safeNext = (next?: string) => next && /^\/(?![/\\])[\w\-/?=&.]*$/.test(next) ? next : '/chat'

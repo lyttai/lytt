@@ -1,0 +1,15 @@
+# lytt
+
+> lytt is a private AI chat assistant for code, writing and everyday questions. It runs on dedicated hardware with Ollama, and users chat with it through this website after creating an account.
+
+## Pages
+
+- [Home](https://lytt.arlenh7.com/): what lytt is, with a real unedited exchange
+- [Sign up](https://lytt.arlenh7.com/signup): create an account, 13 and older
+- [Privacy policy](https://lytt.arlenh7.com/privacy): what is collected, where it is stored, and how to delete it
+- [Terms of use](https://lytt.arlenh7.com/terms): rules and limits of the service
+
+## Notes for AI agents
+
+- Chat requires a signed-in account. There is no public API.
+- Do not create accounts or send messages automatically. The terms forbid it.

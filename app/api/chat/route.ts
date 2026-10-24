@@ -10,7 +10,7 @@ export const maxDuration = 300
 const exts = /\.(txt|md|csv|json|ya?ml|xml|html|css|js|jsx|ts|tsx|py|rb|go|rs|java|kt|swift|c|h|cpp|hpp|cs|php|sh|sql|toml|ini|log)$/i, maxFile = 100_000, maxContext = 24_000
 const schema = z.object({ chatId: z.uuid().optional(), content: z.string().trim().min(1).max(16_000) })
 const fail = (status: number, error: string, headers?: Record<string, string>) => NextResponse.json({ error }, { status, headers })
-const cf = () => process.env.CF_ACCESS_CLIENT_ID ? { 'CF-Access-Client-Id': process.env.CF_ACCESS_CLIENT_ID, 'CF-Access-Client-Secret': process.env.CF_ACCESS_CLIENT_SECRET ?? '' } : {}
+const cf = (): Record<string, string> => process.env.CF_ACCESS_CLIENT_ID ? { 'CF-Access-Client-Id': process.env.CF_ACCESS_CLIENT_ID, 'CF-Access-Client-Secret': process.env.CF_ACCESS_CLIENT_SECRET ?? '' } : {}
 
 export async function POST(req: NextRequest) {
   if (!originAllowed(req.headers.get('origin'))) return fail(403, 'Forbidden.')
