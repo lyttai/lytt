@@ -85,3 +85,11 @@ revoke all on function public.unsubscribe_email(text) from public, anon, authent
 revoke all on function public.handle_new_user() from public, anon, authenticated;
 grant execute on function public.hit_rate_limit(text, integer, integer) to service_role;
 grant execute on function public.unsubscribe_email(text) to service_role;
+
+create function public.purge_user_logs(p_user uuid) returns void language sql security definer set search_path = '' as $$
+  delete from auth.audit_log_entries where payload ->> 'actor_id' = p_user::text or payload -> 'traits' ->> 'user_id' = p_user::text;
+  delete from public.rate_limits where key = 'chat:' || p_user::text;
+$$;
+
+revoke all on function public.purge_user_logs(uuid) from public, anon, authenticated;
+grant execute on function public.purge_user_logs(uuid) to service_role;
