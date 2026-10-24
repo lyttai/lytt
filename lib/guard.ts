@@ -3,7 +3,7 @@ import { headers } from 'next/headers'
 import { admin } from './supabase/admin'
 import { hash } from './crypto'
 
-export const allowedOrigins = (process.env.ALLOWED_ORIGINS ?? 'http://localhost:3000').split(',').map((o) => o.trim())
+export const allowedOrigins = (process.env.ALLOWED_ORIGINS || ['https://lytt.arlenh7.com', ...(process.env.NODE_ENV === 'development' ? ['http://localhost:3000'] : [])].join(',')).split(',').map((o) => o.trim()).filter(Boolean)
 
 export const originAllowed = (origin: string | null) => !!origin && allowedOrigins.includes(origin)
 

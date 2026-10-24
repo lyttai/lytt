@@ -24,7 +24,7 @@ The browser never talks to Ollama. Only `/api/chat` on the server does, after ch
 | Name | Where to get it |
 |---|---|
 | `NEXT_PUBLIC_SITE_URL` | `https://lytt.arlenh7.com` in production, `http://localhost:3000` locally |
-| `ALLOWED_ORIGINS` | Comma list of origins allowed to call `/api/chat` |
+| `ALLOWED_ORIGINS` | Comma list of origins allowed to call `/api/chat`. Production: `https://lytt.arlenh7.com`. Defaults to that, plus localhost in development |
 | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` | Set by the Vercel Supabase integration. Locally, Supabase > Project Settings > API |
 | `OLLAMA_URL` | `https://api.arlenh7.com` (the tunnel hostname, no path) |
 | `OLLAMA_MODEL` | `lytt` |
