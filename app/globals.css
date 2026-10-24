@@ -92,9 +92,10 @@ code, pre, kbd { font-family: var(--font-mono), ui-monospace, monospace; font-si
 .cookie-banner p { margin: 0; }
 
 .hero { padding: 72px 0 40px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: start; }
+.hero > *, .chat-shell > *, .chat { min-width: 0; }
 .hero p.lead { font-size: 1.2rem; color: var(--muted); max-width: 520px; }
 .hero .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-.demo { border: 1px solid var(--line); background: var(--surface); }
+.demo { border: 1px solid var(--line); background: var(--surface); margin: 0; }
 .demo header { display: flex; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
 .demo .messages { padding: 16px; max-height: 520px; overflow: auto; }
 .facts { border-top: 1px solid var(--line); padding: 40px 0 64px; }
