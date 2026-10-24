@@ -1,0 +1,5 @@
+export const demo = {
+  "question": "I have a list of 2 million email addresses in Python and need to remove duplicates but keep the original order. Fastest way?",
+  "answer": "The fastest and most efficient way to remove duplicates from a list while preserving the original order in Python is to use a `set` for checking membership and a list for preserving the order.\n\nHere’s a clean and efficient implementation:\n\n```python\ndef remove_duplicates(emails):\n    seen = set()\n    result = []\n    for email in emails:\n        if email not in seen:\n            seen.add(email)\n            result.append(email)\n    return result\n```\n\n### Why this works:\n- **`set`** is used for constant-time (`O(1)`) lookups to check if an item has been seen before.\n- **`list`** maintains the order of the first occurrence of each email.\n- Time complexity: **O(n)**, where *n* is the number of emails.\n- Space complexity: **O(n)** for the `seen` set and the `result` list.\n\nThis method is ideal for a list of 2 million items. It's fast and memory-efficient for most modern hardware.",
+  "seconds": 99
+}
