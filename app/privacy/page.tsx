@@ -36,7 +36,7 @@ export default function Page() {
           <tr><td>Vercel</td><td>Hosts this website and runs its server code. Your messages pass through it on the way to the model. Keeps standard request logs such as IP address and page requested</td><td>Server functions in the icn1 region, Seoul, South Korea. Pages are delivered through Vercel&apos;s global network</td></tr>
           <tr><td>Cloudflare</td><td>Carries messages from the website&apos;s server to the lytt machine through Cloudflare Tunnel, behind Cloudflare Access so nobody else can reach it. Also runs the Turnstile bot check on signup, login and password reset</td><td>Cloudflare&apos;s global network</td></tr>
           <tr><td>The lytt machine</td><td>A computer run by lytt&apos;s operator that runs the model with Ollama. It reads your conversation to write a reply and does not save chats</td><td>Operator&apos;s own hardware</td></tr>
-          <tr><td>Supabase Auth email</td><td>Sends confirmation and password reset emails to your address</td><td>Supabase</td></tr>
+          <tr><td>Resend</td><td>Delivers confirmation and password reset emails to your address when Supabase Auth requests them, from noreply@lytt.arlenh7.com</td><td>AWS ap-northeast-1, Tokyo, Japan</td></tr>
         </tbody>
       </table>
       <p>Each provider handles data under its own privacy policy and keeps its own logs for its own limited retention period. Fonts are served from this site, so your browser does not contact Google or any font service.</p>

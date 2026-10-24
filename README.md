@@ -42,7 +42,7 @@ Never commit real values. The repo is public.
 2. Authentication > URL Configuration: Site URL `https://lytt.arlenh7.com`, redirect URLs `https://lytt.arlenh7.com/**` and `http://localhost:3000/**`.
 3. Authentication > Emails > Templates: paste `supabase/templates/confirm.html` into "Confirm signup" and `recovery.html` into "Reset password".
 4. Authentication > Attack Protection: enable CAPTCHA, provider Turnstile, paste the Turnstile secret key.
-5. Recommended: Authentication > SMTP, connect your own email provider. The built-in sender only allows a few emails per hour. If you do this, name the provider in `app/privacy/page.tsx`.
+5. Authentication > Emails > SMTP Settings: custom SMTP through Resend (domain `lytt.arlenh7.com`, region ap-northeast-1), host `smtp.resend.com`, port 465, username `resend`, password a Resend API key, sender `noreply@lytt.arlenh7.com`. Required: Supabase's built-in sender only delivers to project team members, 2 emails per hour. If the provider or region changes, update `app/privacy/page.tsx`.
 
 ### Cloudflare
 1. Tunnel: Zero Trust > Networks > Connectors > Cloudflare Tunnels > Create a tunnel (Cloudflared). Install the connector on the Ollama PC with the command the dashboard shows. Add a published application route: subdomain `api`, domain `arlenh7.com`, path empty, service `http://localhost:11434`, and under Additional application settings > HTTP Settings set HTTP Host Header to `localhost:11434`. cloudflared does not strip paths, so `OLLAMA_URL` is `https://api.arlenh7.com`.
