@@ -1,10 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookieOptions, supabaseKey, supabaseUrl } from './lib/supabase/config'
+import { site } from './lib/site'
 
 const privatePaths = ['/chat', '/settings', '/reset-password'], guestPaths = ['/login', '/signup', '/forgot-password']
 
 export async function proxy(request: NextRequest) {
+  if (process.env.VERCEL_ENV === 'production' && request.nextUrl.host !== new URL(site.url).host) return NextResponse.redirect(new URL(`${request.nextUrl.pathname}${request.nextUrl.search}`, site.url), 308)
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64'), dev = process.env.NODE_ENV === 'development', path = request.nextUrl.pathname
   const csp = [`default-src 'self'`, `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${dev ? " 'unsafe-eval'" : ''}`, `style-src 'self' 'unsafe-inline'`, `img-src 'self' data: blob:`, `font-src 'self'`, `connect-src 'self'`, `frame-src https://challenges.cloudflare.com`, `object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, `frame-ancestors 'none'`, ...(dev ? [] : ['upgrade-insecure-requests'])].join('; ')
   const headers = new Headers(request.headers)
