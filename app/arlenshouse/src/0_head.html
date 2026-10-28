@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Arlen's House</title>
+<style>
+:root{--bg:#04060b;--fg:#ece8de;--muted:#a9a49a;--accent:#e2b867;--panel:rgba(8,10,18,.82);--line:rgba(255,255,255,.12)}
+:root[data-theme="light"]{--bg:#04060b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#04060b}}
+:root[data-theme="dark"]{--bg:#04060b}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
+canvas{display:block;width:100vw;height:100vh}
+#overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(10,14,28,.55),rgba(2,3,8,.92));z-index:5;padding:16px;box-sizing:border-box}
+#card{max-width:560px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px 28px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#card h1{margin:0 0 4px;font-size:26px;letter-spacing:.3px}
+#card .sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+#card table{border-collapse:collapse;width:100%;font-size:14px;margin-bottom:16px}
+#card td{padding:4px 0;border-bottom:1px solid var(--line)}
+#card td:first-child{color:var(--accent);font-weight:600;width:150px;font-family:ui-monospace,Consolas,monospace}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+button{font:inherit;border-radius:9px;border:1px solid var(--line);background:#1a1f2e;color:var(--fg);padding:10px 16px;cursor:pointer}
+button.primary{background:var(--accent);color:#1b1408;border-color:transparent;font-weight:700}
+button:hover{filter:brightness(1.1)}
+#loading{color:var(--muted);font-size:13px;margin-top:12px;min-height:18px}
+#hud{position:fixed;left:16px;top:14px;z-index:3;font-size:14px;pointer-events:none;text-shadow:0 1px 3px #000}
+#hud .room{font-size:18px;font-weight:700}
+#hud .lvl{color:var(--muted)}
+#hint{position:fixed;left:50%;top:58%;transform:translateX(-50%);z-index:3;background:rgba(0,0,0,.55);padding:6px 12px;border-radius:8px;font-size:14px;display:none;pointer-events:none}
+#toast{position:fixed;left:50%;bottom:60px;transform:translateX(-50%);z-index:3;background:rgba(120,20,20,.85);padding:8px 16px;border-radius:8px;font-weight:600;display:none;pointer-events:none}
+#cross{position:fixed;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:rgba(255,255,255,.75);z-index:3;pointer-events:none}
+#keys{position:fixed;right:14px;bottom:12px;z-index:3;font-size:12px;color:var(--muted);text-align:right;pointer-events:none;text-shadow:0 1px 2px #000}
+@media (max-width:600px){#card{padding:18px}#card td:first-child{width:110px}#keys{display:none}}
+</style>
+<script type="importmap">
+{"imports":{
+ "three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+ "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+}}
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="overlay"><div id="card">
+ <h1>Arlen's House</h1>
+ <p class="sub">A walk-through model of the house, built 1:1 from the photos. It's night, the garage is locked and every room has its furniture.</p>
+ <table>
+  <tr><td>Mouse</td><td>Look around</td></tr>
+  <tr><td>W A S D</td><td>Walk (hold Shift to run)</td></tr>
+  <tr><td>E</td><td>Open or close the door you're looking at</td></tr>
+  <tr><td>F</td><td>Flashlight</td></tr>
+  <tr><td>1 2 3</td><td>Jump to basement, main floor, upstairs</td></tr>
+  <tr><td>4 5</td><td>Jump to the backyard, the front of the house</td></tr>
+  <tr><td>N</td><td>Noclip (fly through walls, Space/C up/down)</td></tr>
+  <tr><td>Esc</td><td>Pause</td></tr>
+ </table>
+ <div class="btns">
+  <button class="primary" id="go" disabled>Loading…</button>
+  <button id="glb">Download .glb for Unreal Engine</button>
+ </div>
+ <div id="loading"></div>
+</div></div>
+<div id="hud"><div class="room" id="room">Outside</div><div class="lvl" id="lvl"></div></div>
+<div id="cross"></div>
+<div id="hint"></div>
+<div id="toast"></div>
+<div id="keys">E door · F flashlight · N noclip · 1–5 teleport</div>
+<script type="module">
